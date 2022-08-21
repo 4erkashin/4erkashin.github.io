@@ -1,11 +1,12 @@
-import type {GetStaticPaths, NextPage} from 'next';
+import type {GetStaticPaths, NextPage, GetStaticProps} from 'next';
+import type {ParsedUrlQuery} from 'querystring';
+
 import Head from 'next/head';
-import {getAllPostIds, getPostData, Post} from '../../lib/posts';
+
 import Layout from '../../components/layout';
 import Date from '../../components/date';
-import utilStyles from '../../styles/utils.module.css';
-import {GetStaticProps} from 'next';
-import {ParsedUrlQuery} from 'querystring';
+
+import {getAllPostIds, getPostData, Post} from '../../lib/posts';
 
 interface Props {
   postData: Post
@@ -17,8 +18,8 @@ const PostPage: NextPage<Props> = ({ postData }) => {
         <title>{postData.title}</title>
       </Head>
       <article>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={utilStyles.lightText}>
+        <h1>{postData.title}</h1>
+        <div>
           <Date dateString={postData.date} />
         </div>
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
