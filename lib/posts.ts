@@ -10,6 +10,9 @@ export interface Post {
   id: string;
   date: string;
   title: string;
+  excerpt: string;
+  coverImage: string;
+  ogImage: string;
   contentHtml: string;
 }
 export function getSortedPostsData(): Post[] {

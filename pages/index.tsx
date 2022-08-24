@@ -1,9 +1,10 @@
 import type {GetStaticProps, NextPage} from 'next'
 import Head from 'next/head'
-import Link from 'next/link';
 
-import Date from 'components/date';
-import Layout, { siteTitle } from 'components/layout';
+import Layout from 'components/layout';
+import HeroPost from 'components/hero-post';
+import Container from 'components/container'
+import MoreStories from 'components/more-stories'
 
 import type { Post } from 'lib/posts';
 import { getSortedPostsData } from 'lib/posts';
@@ -12,37 +13,34 @@ interface Props {
   allPostsData: Post[]
 }
 const HomePage: NextPage<Props> = ({allPostsData}) => {
+  const heroPost = allPostsData[0]
+  const morePosts = allPostsData.slice(1)
   return (
-      <Layout home>
+      <Layout>
         <Head>
-          <title>{siteTitle}</title>
+          <title>Yuriy's blog</title>
         </Head>
 
-        <section>
-          <p>[Your Self Introduction]</p>
-          <p>
-            (This is a sample website - you’ll be building a site like this on{' '}
-            <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
-          </p>
-        </section>
-        <section>
-          <h2>Blog</h2>
-          <ul>
-            {allPostsData.map(({ id, date, title }) => (
-                <li key={id}>
-                  <Link href={`/posts/${id}`}>
-                    <a>{title}</a>
-                  </Link>
-                  <br />
-                  <small>
-                    <Date dateString={date} />
-                  </small>
-                </li>
-            ))}
-          </ul>
-        </section>
+        <Container>
+          <section className="flex flex-col mb-16 md:mb-12">
+            <h1 className="text-5xl md:text-8xl font-bold tracking-wider md:pr-8">
+              Yuriy's blog
+            </h1>
+          </section>
+
+          {heroPost && (
+              <HeroPost
+                  title={heroPost.title}
+                  coverImage={heroPost.coverImage}
+                  date={heroPost.date}
+                  id={heroPost.id}
+                  excerpt={heroPost.excerpt}
+              />
+          )}
+          {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+        </Container>
       </Layout>
-  );
+  )
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
@@ -53,5 +51,21 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     },
   };
 }
+
+// TODO compare with version above
+/*export const getStaticProps = async () => {
+  const allPosts = getAllPosts([
+    'title',
+    'date',
+    'slug',
+    'author',
+    'coverImage',
+    'excerpt',
+  ])
+
+  return {
+    props: { allPosts },
+  }
+}*/
 
 export default HomePage
