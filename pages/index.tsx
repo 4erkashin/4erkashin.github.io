@@ -2,11 +2,11 @@ import type {GetStaticProps, NextPage} from 'next'
 import Head from 'next/head'
 import Link from 'next/link';
 
-import Date from '../components/date';
-import Layout, { siteTitle } from '../components/layout';
+import Date from 'components/date';
+import Layout, { siteTitle } from 'components/layout';
 
-import type { Post } from '../lib/posts';
-import { getSortedPostsData } from '../lib/posts';
+import type { Post } from 'lib/posts';
+import { getSortedPostsData } from 'lib/posts';
 
 interface Props {
   allPostsData: Post[]

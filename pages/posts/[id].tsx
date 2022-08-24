@@ -3,10 +3,10 @@ import type {ParsedUrlQuery} from 'querystring';
 
 import Head from 'next/head';
 
-import Layout from '../../components/layout';
-import Date from '../../components/date';
+import Layout from 'components/layout';
+import Date from 'components/date';
 
-import {getAllPostIds, getPostData, Post} from '../../lib/posts';
+import {getAllPostIds, getPostData, Post} from 'lib/posts';
 
 interface Props {
   postData: Post
